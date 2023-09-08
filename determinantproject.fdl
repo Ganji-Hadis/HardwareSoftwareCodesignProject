@@ -1,0 +1,170 @@
+//Codesign-FinalProject-GoltaHaghighi-HadisGanji
+dp det(in row, column ,
+		a0,a1,a2,a3,a4,a5,a6,a7,a8,
+		b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,		
+		c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24:tc(16);
+	out  det_result  : tc(16)){
+	
+	reg temp_result : tc(16);	
+	reg m , n : tc(16);
+	reg i: tc(16);
+	
+	always
+	{
+		det_result = temp_result;
+
+	}
+	sfg init {
+		m=row;
+		n=column;
+		i=0;
+		$display($dec,"matrix dimension is : ", row , "x" , column);
+	}
+		
+	sfg print1 {
+		$display("*****invalid*****");
+	}
+	sfg print2 {
+		$display("software calculating");
+	}
+	sfg print3 {
+		$display("ok");
+	}
+	
+
+	sfg cal3 {
+		$display($dec,"matrix is: ", a0, "	" ,a1, "	" , a2);
+		$display($dec,"           ", a3, "	" ,a4, "	" , a5);
+		$display($dec,"           ", a6, "	" ,a7, " 	" , a8);
+		temp_result = a0*((a4*a8)-(a7*a5))-a1*((a3*a8)-(a7*a6))+a2*((a3*a7)-(a4*a6));
+	}
+	sfg cal4 {
+		$display($dec,"matrix is: ", b0, "	" ,b1, "	" , b2, "	"  , b3);
+		$display($dec,"           ", b4, "	" ,b5, "	" , b6, "	"  , b7);
+		$display($dec,"           ", b8, "	" ,b9, "	" , b10,"	"  , b11);
+		$display($dec,"           ", b12,"	" ,b13,"	" , b14,"	"  , b15);
+		temp_result = (b0*(b5*((b10*b15)-(b14*b11)))- b0*(b6*((b9*b15 )-(b13*b11)))+ b0*(b7*((b9*b14)-(b13*b10))))
+		    	    - (b1*(b4*((b10*b15)-(b14*b11)))- b1*(b6*((b8*b15)-(b12*b11)))+ b1*(b7*((b8*b14)-(b10*b12))))
+		    	    + (b2*(b4*((b9*b15 )-(b13*b11)))- b2*(b5*((b8*b15)-(b12*b11)))+ b2*(b7*((b8*b13)-(b12*b9 ))))
+		    	    - (b3*(b4*((b9*b14 )-(b13*b10)))- b3*(b5*((b8*b14)-(b12*b10)))+ b3*(b6*((b8*b13)-(b12*b9 ))));
+		    
+	}
+	sfg cal5 {
+		$display($dec,"matrix is: ", c0, "	" ,c1, "	" , c2, "	"  , c3, "	" , c4);
+		$display($dec,"           ", c5, "	" ,c6, "	" , c7, "	"  , c8, "	" , c9);
+		$display($dec,"           ", c10,"	" ,c11," 	" , c12,"	"  , c13,"	" , c14);
+		$display($dec,"           ", c15,"	" ,c16,"	" , c17,"	"  , c18,"	" , c19);
+		$display($dec,"           ", c20,"	" ,c21,"	" , c22,"	"  , c23,"	" , c24);
+		temp_result= c0*c6*c12*c18*c24 + c0*c6*c13*c19*c22 + c0*c6*c14*c17*c23
+		  	   - c0*c6*c14*c18*c22 - c0*c6*c13*c17*c24 - c0*c6*c12*c19*c23 
+		  	   - c0*c11*c7*c18*c24 - c0*c11*c8*c19*c22 - c0*c11*c9*c17*c23
+		  	   + c0*c11*c9*c18*c22 + c0*c11*c8*c17*c24 + c0*c11*c7*c19*c23
+		  	   + c0*c16*c7*c13*c24 + c0*c16*c8*c14*c22 + c0*c16*c9*c12*c23
+		  	   - c0*c16*c9*c13*c22 - c0*c16*c8*c12*c24 - c0*c16*c7*c14*c23
+		  	   - c0*c21*c7*c13*c19 - c0*c21*c8*c14*c17 - c0*c21*c9*c12*c18
+		   	   + c0*c21*c9*c13*c17 + c0*c21*c8*c12*c19 + c0*c21*c7*c14*c18
+		   	   
+		   	   - c5*c1*c12*c18*c24 - c5*c1*c13*c19*c22 - c5*c1*c14*c17*c23
+		  	   + c5*c1*c14*c18*c22 + c5*c1*c13*c17*c24 + c5*c1*c12*c19*c23 
+		  	   + c5*c11*c2*c18*c24 + c5*c11*c3*c19*c22 + c5*c11*c4*c17*c23
+		  	   - c5*c11*c4*c18*c22 - c5*c11*c3*c17*c24 - c5*c11*c2*c19*c23
+		  	   - c5*c16*c2*c13*c24 - c5*c16*c3*c14*c22 - c5*c16*c4*c12*c23
+		  	   + c5*c16*c4*c13*c22 + c5*c16*c3*c12*c24 + c5*c16*c2*c14*c23
+		 	   + c5*c21*c2*c13*c19 + c5*c21*c3*c14*c17 + c5*c21*c4*c12*c18 
+		  	   - c5*c21*c4*c13*c17 - c5*c21*c3*c12*c19 - c5*c21*c2*c14*c18
+		  	   
+ 		  	   + c10*c1*c7*c18*c24 + c10*c1*c8*c19*c22 + c10*c1*c9*c17*c23
+		 	   - c10*c1*c9*c18*c22 - c10*c1*c8*c17*c24 - c10*c1*c7*c19*c23 
+		 	   - c10*c6*c2*c18*c24 - c10*c6*c3*c19*c22 - c10*c6*c4*c17*c23
+			   + c10*c6*c4*c18*c22 + c10*c6*c3*c17*c24 + c10*c6*c2*c19*c23
+			   + c10*c16*c2*c8*c24 + c10*c16*c3*c9*c22 + c10*c16*c4*c7*c23
+			   - c10*c16*c4*c8*c22 - c10*c16*c3*c7*c24 - c10*c16*c2*c9*c23
+			   - c10*c21*c2*c8*c19 - c10*c21*c3*c9*c17 - c10*c21*c4*c7*c18 
+			   + c10*c21*c4*c8*c17 + c10*c21*c3*c7*c19 + c10*c21*c2*c9*c18
+			   
+ 		 	   - c15*c1*c7*c13*c24 - c15*c1*c8*c14*c22 - c15*c1*c9*c12*c23
+			   + c15*c1*c9*c13*c22 + c15*c1*c8*c12*c24 + c15*c1*c7*c14*c23 
+		   	   + c15*c6*c2*c13*c24 + c15*c6*c3*c14*c22 + c15*c6*c4*c12*c23
+		 	   - c15*c6*c4*c13*c22 - c15*c6*c3*c12*c24 - c15*c6*c2*c14*c23
+		 	   - c15*c11*c2*c8*c24 - c15*c11*c3*c9*c22 - c15*c11*c4*c7*c23
+		 	   + c15*c11*c4*c8*c22 + c15*c11*c3*c7*c24 + c15*c11*c2*c9*c23
+		 	   + c15*c21*c2*c8*c14 + c15*c21*c3*c9*c12 + c15*c21*c4*c7*c13 
+		 	   - c15*c21*c4*c8*c12 - c15*c21*c3*c7*c14 - c15*c21*c2*c9*c13
+		 	   
+			   + c20*c1*c7*c13*c19 + c20*c1*c8*c14*c17 + c20*c1*c9*c12*c18
+		  	   - c20*c1*c9*c13*c17 - c20*c1*c8*c12*c19 - c20*c1*c7*c14*c18 
+		 	   - c20*c6*c2*c13*c19 - c20*c6*c3*c14*c17 - c20*c6*c4*c12*c18
+			   + c20*c6*c4*c13*c17 + c20*c6*c3*c12*c19 + c20*c6*c2*c14*c18
+		 	   + c20*c11*c2*c8*c19 + c20*c11*c3*c9*c17 + c20*c11*c4*c7*c18
+		 	   - c20*c11*c4*c8*c17 - c20*c11*c3*c7*c19 - c20*c11*c2*c9*c18
+			   - c20*c16*c2*c8*c14 - c20*c16*c3*c9*c12 - c20*c16*c4*c7*c13 
+		  	   + c20*c16*c4*c8*c12 + c20*c16*c3*c7*c14 + c20*c16*c2*c9*c13;
+	}
+	sfg finish1 {$display($dec,"finish","    determinant is  = " ,det_result);}
+	sfg print4  {$display("*****The number of row and columns is out of range*****");}
+	sfg finish2 {$display("finish");}
+}
+
+
+fsm det_cal(det){
+	initial s0;
+	state s1,s2,s3;
+	@s0 (init)-> s1;
+	@s1 if (m != n) then (print1 ) -> s3;
+		else if (m<=2) then (print2) -> s3;
+		else if(m==3) then (print3 , cal3) -> s2;
+		else if(m==4) then (print3, cal4) -> s2;
+		else if(m==5) then (print3, cal5) -> s2;
+  		else (print4) -> s3;
+	@s2 (finish1) -> s2;
+	@s3 (finish2) -> s3;
+		
+}
+dp test_det(out row , column ,
+		a0,a1,a2,a3,a4,a5,a6,a7,a8,
+		b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,		
+		c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24: tc(16))
+{
+	sfg run
+	{ 
+		row = 3;
+		column = 3;
+		
+		a0=1; 	a1=3; 	a2=4;	a3=5;	a4=5;	a5=1;	a6=0;	a7=2;	a8=3;
+		//result should be : 8
+		
+		b0=3;	b1= 2;	b2=1;	b3=0;	b4=5;	b5=10;	b6=7;	b7=6;	b8=2;	
+		b9=2;	b10=5;	b11=8;	b12=9;	b13=6;	b14=3;	b15=1;
+		//result should be : 76
+		
+		c0=10;	c1=6;	c2=4;	c3=15;	c4=2;	c5=14;	c6=12;	c7=5;	c8=2;
+		c9=4;	c10=15;	c11=0;	c12=6;	c13=8;	c14=1;	c15=5;	c16=1;	c17=4;
+		c18=16;	c19=3;	c20=9;	c21=2;	c22=11;	c23=14;	c24=4;
+		//result should be : -30955
+	}
+}
+hardwired h_test_det (test_det) {run;}
+
+dp determinant 
+{
+	sig row : tc(16);
+	sig column : tc(16);
+	sig a0,a1,a2,a3,a4,a5,a6,a7,a8:tc(16);
+	sig b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15:tc(16);
+	sig c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24:tc(16);
+	sig det_result : tc(16);
+	
+	
+	use det (row , column ,
+		 a0,a1,a2,a3,a4,a5,a6,a7,a8,
+		 b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,
+		 c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,det_result);
+	use test_det(row , column ,
+		     a0,a1,a2,a3,a4,a5,a6,a7,a8,
+		     b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,
+		     c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24);
+} 
+system S 
+{
+	determinant;
+}
