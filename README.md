@@ -1,2 +1,3 @@
 # HardwareSoftwareCodesignProject
 hardware description for calculating the determinant of matrices with 3 and higher dimensions and software description for calculating the determinant of 1 and 2 dimensional matrices
+ The software description for calculating determinants of 1 and 2-dimensional matrices involved implementing the relevant codes in the C language. As for the hardware description of determinants for matrices with 3 dimensions and above, a control unit was designed as a Finite State Machine (FSM). Subsequently, this FSM was implemented using Ghezel, along with its corresponding DataPath. This approach allowed for efficient computation and representation of determinants, providing a comprehensive solution for both software and hardware implementations. 
